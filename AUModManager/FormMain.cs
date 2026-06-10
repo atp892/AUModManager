@@ -190,6 +190,7 @@ namespace AmongUsModManager
             {
                 if (release.Install)
                 {
+                    if (release.Name.Contains("BepInEx") && Directory.Exists(Path.Combine(InstallDirectory, "BepInEx"))) continue;
                     UpdateStatus(string.Format("Downloading...{0}", release.Name));
                     byte[] file = new byte[0];
                     if (release.OverrideDownloadLink != null)
@@ -224,6 +225,7 @@ namespace AmongUsModManager
                     }
                     else
                     {
+                        
                         UnzipFile(file, (release.InstallLocation != null) ? Path.Combine(InstallDirectory, release.InstallLocation) : InstallDirectory);
                     }
                     UpdateStatus(string.Format("Installed {0}!", release.Name));

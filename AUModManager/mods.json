@@ -25,6 +25,14 @@
       "releaseId": 0,
       "author": "Multiple (See Github)",
       "group": "Gameplay"
+    },
+    {
+      "name": "Reactor",
+      "tag": "",
+      "gitPath": "NuclearPowered/Reactor",
+      "releaseId": 0,
+      "author": "NuclearPowered",
+      "group": "Library"
     }
   ],
   "groups": [

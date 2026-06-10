@@ -7,12 +7,12 @@
       "RelativeMoniker": "D:0:0:{D30E6357-6B15-4EDC-8DD3-8A6D040D83B2}|AUModManager\\AUModManager.csproj|solutionrelative:aumodmanager\\formmain.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D30E6357-6B15-4EDC-8DD3-8A6D040D83B2}|AUModManager\\AUModManager.csproj|c:\\users\\892at\\source\\repos\\aumodmanager\\aumodmanager\\internals\\releaseinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D30E6357-6B15-4EDC-8DD3-8A6D040D83B2}|AUModManager\\AUModManager.csproj|solutionrelative:aumodmanager\\internals\\releaseinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{D30E6357-6B15-4EDC-8DD3-8A6D040D83B2}|AUModManager\\AUModManager.csproj|c:\\users\\892at\\source\\repos\\aumodmanager\\aumodmanager\\mods.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{D30E6357-6B15-4EDC-8DD3-8A6D040D83B2}|AUModManager\\AUModManager.csproj|solutionrelative:aumodmanager\\mods.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D30E6357-6B15-4EDC-8DD3-8A6D040D83B2}|AUModManager\\AUModManager.csproj|c:\\users\\892at\\source\\repos\\aumodmanager\\aumodmanager\\internals\\releaseinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D30E6357-6B15-4EDC-8DD3-8A6D040D83B2}|AUModManager\\AUModManager.csproj|solutionrelative:aumodmanager\\internals\\releaseinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{D30E6357-6B15-4EDC-8DD3-8A6D040D83B2}|AUModManager\\AUModManager.csproj|c:\\users\\892at\\source\\repos\\aumodmanager\\aumodmanager\\formmain.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
@@ -34,7 +34,7 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "ReleaseInfo.cs",
               "DocumentMoniker": "C:\\Users\\892at\\source\\repos\\AUModManager\\AUModManager\\Internals\\ReleaseInfo.cs",
               "RelativeDocumentMoniker": "AUModManager\\Internals\\ReleaseInfo.cs",
@@ -96,13 +96,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "mods.json",
               "DocumentMoniker": "C:\\Users\\892at\\source\\repos\\AUModManager\\AUModManager\\mods.json",
               "RelativeDocumentMoniker": "AUModManager\\mods.json",
               "ToolTip": "C:\\Users\\892at\\source\\repos\\AUModManager\\AUModManager\\mods.json",
               "RelativeToolTip": "AUModManager\\mods.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB4AAAApAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
               "WhenOpened": "2026-06-10T15:43:05.321Z",
               "EditorCaption": ""
@@ -115,7 +115,7 @@
               "RelativeDocumentMoniker": "AUModManager\\FormMain.cs",
               "ToolTip": "C:\\Users\\892at\\source\\repos\\AUModManager\\AUModManager\\FormMain.cs",
               "RelativeToolTip": "AUModManager\\FormMain.cs",
-              "ViewState": "AgIAAD0AAAAAAAAAAAAnwGMAAAAhAAAAAAAAAA==",
+              "ViewState": "AgIAAKoAAAAAAAAAAAAqwMYAAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-06-10T15:00:12.8Z",
               "EditorCaption": ""
