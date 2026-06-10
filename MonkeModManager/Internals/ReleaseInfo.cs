@@ -13,6 +13,7 @@ namespace MonkeModManager.Internals
         public string Name;
         public string Author;
         public string GitPath;
+        public string OverrideDownloadLink;
         public string Tag;
         public string Group;
         public string InstallLocation;
@@ -20,11 +21,12 @@ namespace MonkeModManager.Internals
         public bool Install = true;
         public List<string> Dependencies = new List<string>();
         public List<string> Dependents = new List<string>();
-        public ReleaseInfo(string _name, string _author, string _gitPath, int _releaseId, string _tag, string _group, string _installLocation, JSONArray dependencies)
+        public ReleaseInfo(string _name, string _author, string _gitPath, string _overrideDownloadLink, int _releaseId, string _tag, string _group, string _installLocation, JSONArray dependencies)
         {
             Name = _name;
             Author = _author;
             GitPath = _gitPath;
+            OverrideDownloadLink = _OverrideDownloadLink;
             ReleaseId = _releaseId;
             Tag = _tag;
             InstallLocation = _installLocation;
