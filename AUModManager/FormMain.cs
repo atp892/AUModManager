@@ -23,7 +23,6 @@ namespace AmongUsModManager
         private List<ReleaseInfo> releases;
         Dictionary<string, int> groups = new Dictionary<string, int>();
         private string InstallDirectory = @"";
-        private string CustomPath = @"";
         public bool isSteam = true;
         public bool platformDetected = false;
         public int platform;

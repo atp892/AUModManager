@@ -33,6 +33,14 @@
       "releaseId": 0,
       "author": "NuclearPowered",
       "group": "Libraries"
+    },
+    {
+      "name": "Reactor.Impostor",
+      "tag": "",
+      "gitPath": "NuclearPowered/Reactor.Impostor",
+      "releaseId": 1,
+      "author": "NuclearPowered",
+      "group": "Libraries"
     }
   ],
   "groups": [
