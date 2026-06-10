@@ -10,31 +10,13 @@
       "group": "Core"
     },
     {
-      "name": "Among Us Revamped (Steam)",
+      "name": "Among Us Revamped",
       "tag": "",
       "gitPath": "ApeMV/AmongUsRevamped",
       "releaseId": 0,
       "author": "ApeMV",
       "group": "Gameplay",
       "platform": 0
-    },
-    {
-      "name": "Among Us Revamped (Epic)",
-      "tag": "",
-      "gitPath": "ApeMV/AmongUsRevamped",
-      "releaseId": 1,
-      "author": "ApeMV",
-      "group": "Gameplay",
-      "platform": 1
-    },
-    {
-      "name": "Among Us Revamped (Itch)",
-      "tag": "",
-      "gitPath": "ApeMV/AmongUsRevamped",
-      "releaseId": 2,
-      "author": "ApeMV",
-      "group": "Gameplay",
-      "platform": 2
     },
     {
       "name": "Endless Host Roles",
