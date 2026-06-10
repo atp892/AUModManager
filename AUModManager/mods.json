@@ -35,6 +35,14 @@
       "author": "ApeMV",
       "group": "Gameplay",
       "platform": 2
+    },
+    {
+      "name": "Endless Host Roles",
+      "tag": "",
+      "gitPath": "Gurge44/EndlessHostRoles",
+      "releaseId": 0,
+      "author": "Multiple (See Github)",
+      "group": "Gameplay"
     }
   ],
   "groups": [

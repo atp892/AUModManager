@@ -32,6 +32,7 @@ namespace AmongUsModManager.Internals
             Tag = _tag;
             InstallLocation = _installLocation;
             Group = _group;
+            platform = _platform;
 
             if (dependencies == null) return;
             for (int i = 0; i < dependencies.Count; i++)

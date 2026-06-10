@@ -88,6 +88,17 @@ namespace AmongUsModManager
         {
             CheckVersion();
             UpdateStatus("Getting latest version info...");
+            if (listViewMods.Items.Count > 0)
+            {
+                foreach (ListViewItem i in listViewMods.Items)
+                {
+                    i.SubItems.Clear();
+                }
+                listViewMods.Items.Clear();
+                listViewMods.Groups.Clear();
+                groups.Clear();
+                releases.Clear();
+            }
             LoadReleases();
             this.Invoke((MethodInvoker)(() =>
             {//Invoke so we can call from current thread
@@ -100,7 +111,6 @@ namespace AmongUsModManager
                     var value = listViewMods.Groups.Add(new ListViewGroup(key, HorizontalAlignment.Left));
                     groups[key] = value;
                 }
-
                 foreach (ReleaseInfo release in releases)
                 {
                     if (platform == 2 || release.platform == platform)
