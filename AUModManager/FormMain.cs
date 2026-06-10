@@ -7,13 +7,13 @@ using System.Net;
 using System.IO;
 using System.IO.Compression;
 using System.Threading;
-using MonkeModManager.Internals;
+using AmongUsModManager.Internals;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
-using MonkeModManager.Internals.SimpleJSON;
+using AmongUsModManager.Internals.SimpleJSON;
 using System.Text.RegularExpressions;
 
-namespace MonkeModManager
+namespace AmongUsModManager
 {
     public partial class FormMain : Form
     {
@@ -37,7 +37,7 @@ namespace MonkeModManager
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
             releases = new List<ReleaseInfo>();
             var version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
-            labelVersion.Text = "Monke Mod Manager v" + version.Substring(0, version.Length - 2);
+            labelVersion.Text = "Among Us Mod Manager v" + version.Substring(0, version.Length - 2);
             new Thread(() =>
             {
                 LoadRequiredPlugins();
@@ -48,18 +48,14 @@ namespace MonkeModManager
 
         private void LoadReleases()
         {
-#if !DEBUG
-            var decoded = JSON.Parse(DownloadSite("https://raw.githubusercontent.com/DeadlyKitten/MonkeModManager/master/mods.json"));
-#else
-            var decoded = JSON.Parse(File.ReadAllText("C:/Users/Steven/Desktop/testmods.json"));
-#endif
+            var decoded = JSON.Parse(DownloadSite("https://raw.githubusercontent.com/atp892/AUModManager/master/mods.json"));
             var allMods = decoded["mods"].AsArray;
             var allGroups = decoded["groups"].AsArray;
 
             for (int i = 0; i < allMods.Count; i++)
             {
                 JSONNode current = allMods[i];
-                ReleaseInfo release = new ReleaseInfo(current["name"], current["author"], current["gitPath"], current["releaseId"], current["tag"], current["group"], current["installPath"], current["dependencies"].AsArray);
+                ReleaseInfo release = new ReleaseInfo(current["name"], current["author"], current["gitPath"], current["overrideDownloadLink"], current["releaseId"], current["tag"], current["group"], current["installPath"], current["dependencies"].AsArray);
                 UpdateReleaseInfo(ref release);
                 releases.Add(release);
             }
@@ -146,17 +142,24 @@ namespace MonkeModManager
         {
             Thread.Sleep(100); //So we don't get rate limited by github
 
-            string releaseFormatted = BaseEndpoint + release.GitPath + "/releases";
-            var rootNode = JSON.Parse(DownloadSite(releaseFormatted))[0];
-            
-            release.Version = rootNode["tag_name"];
-            
-            var assetsNode = rootNode["assets"];
-            var downloadReleaseNode = assetsNode[release.ReleaseId];
-            release.Link = downloadReleaseNode["browser_download_url"];
-            
-            var uploaderNode = downloadReleaseNode["uploader"];
-            if (release.Author.Equals(String.Empty)) release.Author = uploaderNode["login"];
+            if (release.OverrideDownloadLink != null) 
+            {
+                release.Version = "Bleeding Edge";
+                release.Link = release.OverrideDownloadLink;
+            }
+            else
+            {
+                string releaseFormatted = BaseEndpoint + release.GitPath + "/releases";
+                var rootNode = JSON.Parse(DownloadSite(releaseFormatted))[0];
+
+                release.Version = rootNode["tag_name"];
+                var assetsNode = rootNode["assets"];
+                var downloadReleaseNode = assetsNode[release.ReleaseId];
+                release.Link = downloadReleaseNode["browser_download_url"];
+
+                var uploaderNode = downloadReleaseNode["uploader"];
+                if (release.Author.Equals(String.Empty)) release.Author = uploaderNode["login"];
+            }
         }
 
         #endregion // ReleaseHandling
@@ -173,6 +176,10 @@ namespace MonkeModManager
                 {
                     UpdateStatus(string.Format("Downloading...{0}", release.Name));
                     byte[] file = DownloadFile(release.Link);
+                    if (release.OverrideDownloadLink != null)
+                    {
+                        file = DownloadFile(release.OverrideDownloadLink);
+                    }
                     UpdateStatus(string.Format("Installing...{0}", release.Name));
                     string fileName = Path.GetFileName(release.Link);
                     if (Path.GetExtension(fileName).Equals(".dll"))
@@ -222,20 +229,20 @@ namespace MonkeModManager
         {
             using (var fileDialog = new OpenFileDialog())
             {
-                fileDialog.FileName = "Gorilla Tag.exe";
+                fileDialog.FileName = "Among Us.exe";
                 fileDialog.Filter = "Exe Files (.exe)|*.exe|All Files (*.*)|*.*";
                 fileDialog.FilterIndex = 1;
                 if (fileDialog.ShowDialog() == DialogResult.OK)
                 {
                     string path = fileDialog.FileName;
-                    if (Path.GetFileName(path).Equals("Gorilla Tag.exe"))
+                    if (Path.GetFileName(path).Equals("Among Us.exe"))
                     {
                         InstallDirectory = Path.GetDirectoryName(path);
                         textBoxDirectory.Text = InstallDirectory;
                     }
                     else
                     {
-                        MessageBox.Show("That's not Gorilla Tag.exe! please try again!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("That's not Among Us.exe! please try again!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
 
                 }
@@ -384,43 +391,6 @@ namespace MonkeModManager
 
         }
 
-        private void buttonBackupCosmetics_Click(object sender, EventArgs e)
-        {
-            var pluginsPath = Path.Combine(InstallDirectory, @"BepInEx\plugins");
-
-            SaveFileDialog saveFileDialog = new SaveFileDialog
-            {
-                InitialDirectory = InstallDirectory,
-                FileName = $"Cosmetics Backup",
-                Filter = "ZIP Folder (.zip)|*.zip",
-                Title = "Save Cosmetics Backup"
-            };
-
-            if (saveFileDialog.ShowDialog() == DialogResult.OK && saveFileDialog.FileName != "")
-            {
-                UpdateStatus("Backing up cosmetics...");
-                if (File.Exists(saveFileDialog.FileName)) File.Delete(saveFileDialog.FileName);
-                try
-                {
-                    ZipFile.CreateFromDirectory(Path.Combine(pluginsPath, @"GorillaCosmetics\Hats"), saveFileDialog.FileName, CompressionLevel.Optimal, true);
-                    using (ZipArchive archive = ZipFile.Open(saveFileDialog.FileName, ZipArchiveMode.Update))
-                    {
-                        foreach (var f in Directory.GetFiles(Path.Combine(pluginsPath, @"GorillaCosmetics\Materials")))
-                        {
-                            archive.CreateEntryFromFile(f, $"{Path.Combine("Materials", Path.GetFileName(f))}");
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Something went wrong!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    UpdateStatus("Failed to restore cosmetics.");
-                    return;
-                }
-                UpdateStatus("Backed up cosmetics!");
-            }
-        }
-
         private void buttonRestoreMods_Click(object sender, EventArgs e)
         {
             using (var fileDialog = new OpenFileDialog())
@@ -465,50 +435,6 @@ namespace MonkeModManager
             }
         }
 
-        private void buttonRestoreCosmetics_Click(object sender, EventArgs e)
-        {
-            using (var fileDialog = new OpenFileDialog())
-            {
-                fileDialog.InitialDirectory = InstallDirectory;
-                fileDialog.FileName = "Cosmetics Backup.zip";
-                fileDialog.Filter = "ZIP Folder (.zip)|*.zip";
-                fileDialog.FilterIndex = 1;
-                if (fileDialog.ShowDialog() == DialogResult.OK)
-                {
-                    if (!Path.GetExtension(fileDialog.FileName).Equals(".zip", StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        MessageBox.Show("Invalid file!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        UpdateStatus("Failed to restore co0smetics.");
-                        return;
-                    }
-                    var cosmeticsPath = Path.Combine(InstallDirectory, @"BepInEx\plugins\GorillaCosmetics");
-                    try
-                    {
-                        UpdateStatus("Restoring cosmetics...");
-                        using (var archive = ZipFile.OpenRead(fileDialog.FileName))
-                        {
-                            foreach (var entry in archive.Entries)
-                            {
-                                var directory = Path.Combine(InstallDirectory, @"BepInEx\plugins\GorillaCosmetics", Path.GetDirectoryName(entry.FullName));
-                                if (!Directory.Exists(directory))
-                                {
-                                    Directory.CreateDirectory(directory);
-                                }
-
-                                entry.ExtractToFile(Path.Combine(cosmeticsPath, entry.FullName), true);
-                            }
-                        }
-                        UpdateStatus("Successfully restored cosmetics!");
-                    }
-                    catch
-                    {
-                        MessageBox.Show("Something went wrong!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        UpdateStatus("Failed to restore cosmetics.");
-                    }
-                }
-            }
-        }
-
         #region Folders
 
         private void buttonOpenGameFolder_Click(object sender, EventArgs e)
@@ -533,16 +459,6 @@ namespace MonkeModManager
 
         #endregion // Folders
 
-        private void buttonOpenWiki_Click(object sender, EventArgs e)
-        {
-            Process.Start("https://gorillatagmodding.burrito.software/");
-        }
-
-        private void buttonDiscordLink_Click(object sender, EventArgs e)
-        {
-            Process.Start("https://discord.gg/ux4ZbBC6JQ");
-        }
-
         #endregion // UIEvents
 
         #region Helpers
@@ -561,9 +477,6 @@ namespace MonkeModManager
                 RQuest.Referer = "";
                 RQuest.UserAgent = "Monke-Mod-Manager";
                 RQuest.Proxy = null;
-#if DEBUG
-                RQuest.Headers.Add("Authorization", $"Token {File.ReadAllText("../../token.txt")}");
-#endif
                 HttpWebResponse Response = (HttpWebResponse)RQuest.GetResponse();
                 StreamReader Sr = new StreamReader(Response.GetResponseStream());
                 string Code = Sr.ReadToEnd();
@@ -579,6 +492,7 @@ namespace MonkeModManager
                 else
                 {
                     MessageBox.Show("Failed to update version info, please check your internet connection", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(ex.Message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 Process.GetCurrentProcess().Kill();
                 return null;
@@ -647,13 +561,13 @@ namespace MonkeModManager
         private void CheckVersion()
         {
             UpdateStatus("Checking for updates...");
-            Int16 version = Convert.ToInt16(DownloadSite("https://raw.githubusercontent.com/DeadlyKitten/MonkeModManager/master/update.txt"));
+            Int16 version = Convert.ToInt16(DownloadSite("https://raw.githubusercontent.com/atp892/AUModManager/master/update.txt"));
             if (version > CurrentVersion)
             {
                 this.Invoke((MethodInvoker)(() =>
                 {
                     MessageBox.Show("Your version of the mod installer is outdated! Please download the new one!", "Update available!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    Process.Start("https://github.com/DeadlyKitten/MonkeModManager/releases/latest");
+                    Process.Start("https://github.com/atp892/AUModManager/releases/latest");
                     Process.GetCurrentProcess().Kill();
                     Environment.Exit(0);
                 }));
@@ -799,7 +713,6 @@ namespace MonkeModManager
         }
 
         #endregion // RegHelper
-
     }
 
 }

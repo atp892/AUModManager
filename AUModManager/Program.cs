@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 
-namespace MonkeModManager
+namespace AmongUsModManager
 {
     static class Program
     {

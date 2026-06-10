@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace MonkeModManager.Internals
+namespace AmongUsModManager.Internals
 {
     /* * * * *
    * A simple JSON Parser / builder

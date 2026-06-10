@@ -1,0 +1,16 @@
+﻿{
+  "totalMods" : 2,
+  "0": {
+    "name": "BepInEx",
+    "tag": "",
+    "gitPath": "BepInEx/BepInEx",
+    "overrideDownloadLink": "https://builds.bepinex.dev/projects/bepinex_be/759/BepInEx-Unity.IL2CPP-win-x64-6.0.0-be.759%2B9aedb90.zip",
+    "releaseId": 1
+  },
+  "1" : {
+   "name" : "Gorilla Cosmetics",
+   "tag" : "",
+   "gitPath" : "legoandmars/GorillaCosmetics",
+   "releaseId" : 0
+  }
+}

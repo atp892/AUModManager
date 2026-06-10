@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using MonkeModManager.Internals.SimpleJSON;
+using AmongUsModManager.Internals.SimpleJSON;
 
-namespace MonkeModManager.Internals
+namespace AmongUsModManager.Internals
 {
     public class ReleaseInfo
     {
@@ -26,7 +26,7 @@ namespace MonkeModManager.Internals
             Name = _name;
             Author = _author;
             GitPath = _gitPath;
-            OverrideDownloadLink = _OverrideDownloadLink;
+            OverrideDownloadLink = _overrideDownloadLink;
             ReleaseId = _releaseId;
             Tag = _tag;
             InstallLocation = _installLocation;
