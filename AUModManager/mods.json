@@ -1,10 +1,30 @@
 ﻿{
-  "totalMods" : 2,
-  "0": {
-    "name": "BepInEx",
-    "tag": "",
-    "gitPath": "BepInEx/BepInEx",
-    "overrideDownloadLink": "https://builds.bepinex.dev/projects/bepinex_be/759/BepInEx-Unity.IL2CPP-win-x64-6.0.0-be.759%2B9aedb90.zip",
-    "releaseId": 1
-  }
+  "mods": [
+    {
+      "name": "BepInEx",
+      "tag": "",
+      "gitPath": "BepInEx/BepInEx",
+      "overrideDownloadLink": "https://builds.bepinex.dev/projects/bepinex_be/759/BepInEx-Unity.IL2CPP-win-x64-6.0.0-be.759%2B9aedb90.zip",
+      "releaseId": 1,
+      "group": "Core"
+    }
+  ],
+  "groups": [
+    {
+      "name": "Core",
+      "rank": 0
+    },
+    {
+      "name": "Cosmetic",
+      "rank": 1
+    },
+    {
+      "name": "Gameplay",
+      "rank": 2
+    },
+    {
+      "name": "Libraries",
+      "rank": 3
+    }
+  ]
 }

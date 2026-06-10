@@ -48,7 +48,7 @@ namespace AmongUsModManager
 
         private void LoadReleases()
         {
-            var decoded = JSON.Parse(DownloadSite("https://raw.githubusercontent.com/atp892/AUModManager/refs/heads/master/mods.json"));
+            var decoded = JSON.Parse(DownloadSite("https://raw.githubusercontent.com/atp892/AUModManager/refs/heads/master/AUModManager/mods.json"));
             var allMods = decoded["mods"].AsArray;
             var allGroups = decoded["groups"].AsArray;
 
@@ -540,13 +540,13 @@ namespace AmongUsModManager
             {
                 using (var fileDialog = new OpenFileDialog())
                 {
-                    fileDialog.FileName = "Gorilla Tag.exe";
+                    fileDialog.FileName = "Among Us.exe";
                     fileDialog.Filter = "Exe Files (.exe)|*.exe|All Files (*.*)|*.*";
                     fileDialog.FilterIndex = 1;
                     if (fileDialog.ShowDialog() == DialogResult.OK)
                     {
                         string path = fileDialog.FileName;
-                        if (Path.GetFileName(path).Equals("Gorilla Tag.exe"))
+                        if (Path.GetFileName(path).Equals("Among Us.exe"))
                         {
                             InstallDirectory = Path.GetDirectoryName(path);
                             textBoxDirectory.Text = InstallDirectory;
@@ -554,7 +554,7 @@ namespace AmongUsModManager
                         }
                         else
                         {
-                            MessageBox.Show("That's not Gorilla Tag.exe! please try again!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show("That's not Among Us.exe! please try again!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
                     else
@@ -624,13 +624,13 @@ namespace AmongUsModManager
         }
         private void ShowErrorFindingDirectoryMessage()
         {
-            MessageBox.Show("We couldn't seem to find your Gorilla Tag installation, please press \"OK\" and point us to it", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show("We couldn't seem to find your Among Us installation, please press \"OK\" and point us to it", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             NotFoundHandler();
             this.TopMost = true;
         }
         private string GetSteamLocation()
         {
-            string path = RegistryWOW6432.GetRegKey64(RegHive.HKEY_LOCAL_MACHINE, @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Steam App 1533390", @"InstallLocation");
+            string path = RegistryWOW6432.GetRegKey64(RegHive.HKEY_LOCAL_MACHINE, @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Steam App 945360", @"InstallLocation");
             if (path != null)
             {
                 path = path + @"\";
