@@ -22,5 +22,17 @@ namespace AmongUsModManager.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string CustomPath {
+            get {
+                return ((string)(this["CustomPath"]));
+            }
+            set {
+                this["CustomPath"] = value;
+            }
+        }
     }
 }

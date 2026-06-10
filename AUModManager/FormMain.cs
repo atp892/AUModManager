@@ -23,6 +23,7 @@ namespace AmongUsModManager
         private List<ReleaseInfo> releases;
         Dictionary<string, int> groups = new Dictionary<string, int>();
         private string InstallDirectory = @"";
+        private string CustomPath = @"";
         public bool isSteam = true;
         public bool platformDetected = false;
 
@@ -330,7 +331,7 @@ namespace AmongUsModManager
         private void buttonUninstallAll_Click(object sender, EventArgs e)
         {
             var confirmResult = MessageBox.Show(
-                "You are about to delete all your mods (including hats and materials). This cannot be undone!\n\nAre you sure you wish to continue?",
+                "You are about to delete all your mods. This cannot be undone!\n\nAre you sure you wish to continue?",
                 "Confirm Delete",
                 MessageBoxButtons.YesNo);
 
@@ -564,6 +565,39 @@ namespace AmongUsModManager
                 }
             }
         }
+        private string CustomPathHandler()
+        {
+            bool found = false;
+            while (found == false)
+            {
+                using (var fileDialog = new OpenFileDialog())
+                {
+                    fileDialog.FileName = "Among Us.exe";
+                    fileDialog.Filter = "Exe Files (.exe)|*.exe|All Files (*.*)|*.*";
+                    fileDialog.FilterIndex = 1;
+                    if (fileDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        string path = fileDialog.FileName;
+                        if (Path.GetFileName(path).Equals("Among Us.exe"))
+                        {
+                            string InstallDirectory = Path.GetDirectoryName(path);
+                            textBoxDirectory.Text = InstallDirectory;
+                            found = true;
+                            return InstallDirectory;
+                        }
+                        else
+                        {
+                            MessageBox.Show("That's not Among Us.exe! please try again!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                    else
+                    {
+                        Process.GetCurrentProcess().Kill();
+                    }
+                }
+            }
+            return "";
+        }
 
         private void CheckVersion()
         {
@@ -611,10 +645,24 @@ namespace AmongUsModManager
             {
                 if (Directory.Exists(steam))
                 {
-                    if (File.Exists(steam + @"\Gorilla Tag.exe"))
+                    if (File.Exists(steam + @"\Among Us.exe"))
                     {
                         textBoxDirectory.Text = steam;
                         InstallDirectory = steam;
+                        platformDetected = true;
+                        return;
+                    }
+                }
+            }
+            string epicgames = GetEpicGamesLocation();
+            if (epicgames != null)
+            {
+                if (Directory.Exists(epicgames))
+                {
+                    if (File.Exists(epicgames + @"\Among Us.exe"))
+                    {
+                        textBoxDirectory.Text = epicgames;
+                        InstallDirectory = epicgames;
                         platformDetected = true;
                         return;
                     }
@@ -630,7 +678,16 @@ namespace AmongUsModManager
         }
         private string GetSteamLocation()
         {
-            string path = RegistryWOW6432.GetRegKey64(RegHive.HKEY_LOCAL_MACHINE, @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Steam App 945360", @"InstallLocation");
+            string path = @"C:\Program Files (x86)\Steam\steamapps\common\Among Us";
+            if (path != null)
+            {
+                path = path + @"\";
+            }
+            return path;
+        }
+        private string GetEpicGamesLocation()
+        {
+            string path = @"C:\Program Files\Epic Games\Among Us";
             if (path != null)
             {
                 path = path + @"\";
@@ -720,6 +777,58 @@ namespace AmongUsModManager
         }
 
         #endregion // RegHelper
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            string path = GetEpicGamesLocation();
+            if (path != null)
+            {
+                if (Directory.Exists(path))
+                {
+                    if (File.Exists(path + @"\Among Us.exe"))
+                    {
+                        textBoxDirectory.Text = path;
+                        InstallDirectory = path;
+                        platformDetected = true;
+                        return;
+                    }
+                }
+            }
+            ShowErrorFindingDirectoryMessage();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            string path = GetSteamLocation();
+            if (path != null)
+            {
+                if (Directory.Exists(path))
+                {
+                    if (File.Exists(path + @"\Among Us.exe"))
+                    {
+                        textBoxDirectory.Text = path;
+                        InstallDirectory = path;
+                        platformDetected = true;
+                        return;
+                    }
+                }
+            }
+            ShowErrorFindingDirectoryMessage();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(Properties.Settings.Default.CustomPath))
+            {
+                Properties.Settings.Default.CustomPath = CustomPathHandler();
+                Properties.Settings.Default.Save();
+                InstallDirectory = Properties.Settings.Default.CustomPath;
+            }
+            else
+            {
+                InstallDirectory = Properties.Settings.Default.CustomPath;
+            }
+        }
     }
 
 }
