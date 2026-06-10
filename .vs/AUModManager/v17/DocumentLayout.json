@@ -7,11 +7,11 @@
       "RelativeMoniker": "D:0:0:{D30E6357-6B15-4EDC-8DD3-8A6D040D83B2}|AUModManager\\AUModManager.csproj|solutionrelative:aumodmanager\\formmain.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{00000000-0000-0000-0000-000000000000}|\u003CSolution\u003E|AUModManager||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{D30E6357-6B15-4EDC-8DD3-8A6D040D83B2}|AUModManager\\AUModManager.csproj|c:\\users\\892at\\source\\repos\\aumodmanager\\aumodmanager\\formmain.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{D30E6357-6B15-4EDC-8DD3-8A6D040D83B2}|AUModManager\\AUModManager.csproj|solutionrelative:aumodmanager\\formmain.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{00000000-0000-0000-0000-000000000000}|\u003CSolution\u003E|AUModManager||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
     },
     {
       "AbsoluteMoniker": "D:0:0:{D30E6357-6B15-4EDC-8DD3-8A6D040D83B2}|AUModManager\\AUModManager.csproj|c:\\users\\892at\\source\\repos\\aumodmanager\\aumodmanager\\||{B270807C-D8C6-49EB-8EBE-8E8D566637A1}|5e9a8ac2-4f34-4521-858f-4c248ba31532"
@@ -52,7 +52,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "AUModManager",
               "DocumentMoniker": "C:\\Users\\892at\\source\\repos\\AUModManager\\AUModManager\\AUModManager.csproj",
               "RelativeDocumentMoniker": "AUModManager\\AUModManager.csproj",
@@ -70,14 +70,14 @@
               "RelativeDocumentMoniker": "AUModManager\\FormMain.cs",
               "ToolTip": "C:\\Users\\892at\\source\\repos\\AUModManager\\AUModManager\\FormMain.cs",
               "RelativeToolTip": "AUModManager\\FormMain.cs",
-              "ViewState": "AgIAALIBAAAAAAAAAAAewO4BAABnAAAAAAAAAA==",
+              "ViewState": "AgIAABsAAAAAAAAAAIAwwDIAAACIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-06-10T15:00:12.8Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "FormMain.cs [Design]",
               "DocumentMoniker": "C:\\Users\\892at\\source\\repos\\AUModManager\\AUModManager\\FormMain.cs",
               "RelativeDocumentMoniker": "AUModManager\\FormMain.cs",

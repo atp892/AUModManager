@@ -48,7 +48,7 @@ namespace AmongUsModManager
 
         private void LoadReleases()
         {
-            var decoded = JSON.Parse(DownloadSite("https://raw.githubusercontent.com/atp892/AUModManager/master/mods.json"));
+            var decoded = JSON.Parse(DownloadSite("https://raw.githubusercontent.com/atp892/AUModManager/refs/heads/master/mods.json"));
             var allMods = decoded["mods"].AsArray;
             var allGroups = decoded["groups"].AsArray;
 
@@ -175,10 +175,14 @@ namespace AmongUsModManager
                 if (release.Install)
                 {
                     UpdateStatus(string.Format("Downloading...{0}", release.Name));
-                    byte[] file = DownloadFile(release.Link);
+                    byte[] file = new byte[0];
                     if (release.OverrideDownloadLink != null)
                     {
                         file = DownloadFile(release.OverrideDownloadLink);
+                    }
+                    else
+                    {
+                                            file = DownloadFile(release.Link);
                     }
                     UpdateStatus(string.Format("Installing...{0}", release.Name));
                     string fileName = Path.GetFileName(release.Link);
@@ -468,8 +472,11 @@ namespace AmongUsModManager
         {
             try
             {
-                if (PermCookie == null) { PermCookie = new CookieContainer(); }
-                HttpWebRequest RQuest = (HttpWebRequest)HttpWebRequest.Create(URL);
+                if (PermCookie == null)
+                {
+                    PermCookie = new CookieContainer();
+                }
+                HttpWebRequest RQuest = (HttpWebRequest)WebRequest.Create(URL);
                 RQuest.Method = "GET";
                 RQuest.KeepAlive = true;
                 RQuest.CookieContainer = PermCookie;
@@ -561,7 +568,7 @@ namespace AmongUsModManager
         private void CheckVersion()
         {
             UpdateStatus("Checking for updates...");
-            Int16 version = Convert.ToInt16(DownloadSite("https://raw.githubusercontent.com/atp892/AUModManager/master/update.txt"));
+            Int16 version = Convert.ToInt16(DownloadSite("https://raw.githubusercontent.com/atp892/AUModManager/refs/heads/master/update.txt"));
             if (version > CurrentVersion)
             {
                 this.Invoke((MethodInvoker)(() =>
