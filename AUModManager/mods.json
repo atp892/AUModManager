@@ -7,6 +7,13 @@
       "overrideDownloadLink": "https://builds.bepinex.dev/projects/bepinex_be/759/BepInEx-Unity.IL2CPP-win-x64-6.0.0-be.759%2B9aedb90.zip",
       "releaseId": 1,
       "group": "Core"
+    },
+    {
+      "name": "Among Us Revamped",
+      "tag": "",
+      "gitPath": "ApeMV/AmongUsRevamped",
+      "releaseId": 1,
+      "group": "Gameplay"
     }
   ],
   "groups": [
