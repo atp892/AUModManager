@@ -19,9 +19,10 @@ namespace AmongUsModManager.Internals
         public string InstallLocation;
         public int ReleaseId;
         public bool Install = true;
+        public int platform;
         public List<string> Dependencies = new List<string>();
         public List<string> Dependents = new List<string>();
-        public ReleaseInfo(string _name, string _author, string _gitPath, string _overrideDownloadLink, int _releaseId, string _tag, string _group, string _installLocation, JSONArray dependencies)
+        public ReleaseInfo(string _name, string _author, string _gitPath, string _overrideDownloadLink, int _releaseId, string _tag, string _group, string _installLocation, int _platform, JSONArray dependencies)
         {
             Name = _name;
             Author = _author;

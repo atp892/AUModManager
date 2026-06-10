@@ -26,6 +26,7 @@ namespace AmongUsModManager
         private string CustomPath = @"";
         public bool isSteam = true;
         public bool platformDetected = false;
+        public int platform;
 
         public FormMain()
         {
@@ -56,7 +57,7 @@ namespace AmongUsModManager
             for (int i = 0; i < allMods.Count; i++)
             {
                 JSONNode current = allMods[i];
-                ReleaseInfo release = new ReleaseInfo(current["name"], current["author"], current["gitPath"], current["overrideDownloadLink"], current["releaseId"], current["tag"], current["group"], current["installPath"], current["dependencies"].AsArray);
+                ReleaseInfo release = new ReleaseInfo(current["name"], current["author"], current["gitPath"], current["overrideDownloadLink"], current["releaseId"], current["tag"], current["group"], current["installPath"], current["platform"], current["dependencies"].AsArray);
                 UpdateReleaseInfo(ref release);
                 releases.Add(release);
             }
@@ -102,31 +103,35 @@ namespace AmongUsModManager
 
                 foreach (ReleaseInfo release in releases)
                 {
-                    ListViewItem item = new ListViewItem();
-                    item.Text = release.Name;
-                    if (!String.IsNullOrEmpty(release.Version)) item.Text = $"{release.Name} - {release.Version}";
-                    if (!String.IsNullOrEmpty(release.Tag)) { item.Text = string.Format("{0} - ({1})",release.Name, release.Tag); };
-                    item.SubItems.Add(release.Author);
-                    item.Tag = release;
-                    if (release.Install)
+                    if (platform == 2 || release.platform == platform)
                     {
-                        listViewMods.Items.Add(item);
-                    }
-                    CheckDefaultMod(release, item);
+                        ListViewItem item = new ListViewItem();
+                        item.Text = release.Name;
+                        if (!String.IsNullOrEmpty(release.Version)) item.Text = $"{release.Name} - {release.Version}";
+                        if (!String.IsNullOrEmpty(release.Tag)) { item.Text = string.Format("{0} - ({1})", release.Name, release.Tag); }
+                        ;
+                        item.SubItems.Add(release.Author);
+                        item.Tag = release;
+                        if (release.Install)
+                        {
+                            listViewMods.Items.Add(item);
+                        }
+                        CheckDefaultMod(release, item);
 
-                    if (release.Group == null || !groups.ContainsKey(release.Group))
-                    {
-                        item.Group = listViewMods.Groups[groups["Uncategorized"]];
-                    }
-                    else if (groups.ContainsKey(release.Group))
-                    {
-                        int index = groups[release.Group];
-                        item.Group = listViewMods.Groups[index];
-                    }
-                    else
-                    {
-                        //int index = listViewMods.Groups.Add(new ListViewGroup(release.Group, HorizontalAlignment.Left));
-                        //item.Group = listViewMods.Groups[index];
+                        if (release.Group == null || !groups.ContainsKey(release.Group))
+                        {
+                            item.Group = listViewMods.Groups[groups["Uncategorized"]];
+                        }
+                        else if (groups.ContainsKey(release.Group))
+                        {
+                            int index = groups[release.Group];
+                            item.Group = listViewMods.Groups[index];
+                        }
+                        else
+                        {
+                            //int index = listViewMods.Groups.Add(new ListViewGroup(release.Group, HorizontalAlignment.Left));
+                            //item.Group = listViewMods.Groups[index];
+                        }
                     }
                 }
 
@@ -183,7 +188,7 @@ namespace AmongUsModManager
                     }
                     else
                     {
-                                            file = DownloadFile(release.Link);
+                        file = DownloadFile(release.Link);
                     }
                     UpdateStatus(string.Format("Installing...{0}", release.Name));
                     string fileName = Path.GetFileName(release.Link);
@@ -552,6 +557,10 @@ namespace AmongUsModManager
                             InstallDirectory = Path.GetDirectoryName(path);
                             textBoxDirectory.Text = InstallDirectory;
                             found = true;
+                            Properties.Settings.Default.CustomPath = Path.GetDirectoryName(path);
+                            Properties.Settings.Default.Save();
+                            InstallDirectory = Properties.Settings.Default.CustomPath;
+                            platform = 2;
                         }
                         else
                         {
@@ -650,6 +659,7 @@ namespace AmongUsModManager
                         textBoxDirectory.Text = steam;
                         InstallDirectory = steam;
                         platformDetected = true;
+                        platform = 0;
                         return;
                     }
                 }
@@ -664,6 +674,7 @@ namespace AmongUsModManager
                         textBoxDirectory.Text = epicgames;
                         InstallDirectory = epicgames;
                         platformDetected = true;
+                        platform = 1;
                         return;
                     }
                 }
@@ -790,6 +801,8 @@ namespace AmongUsModManager
                         textBoxDirectory.Text = path;
                         InstallDirectory = path;
                         platformDetected = true;
+                        platform = 1;
+                        LoadRequiredPlugins();
                         return;
                     }
                 }
@@ -809,6 +822,8 @@ namespace AmongUsModManager
                         textBoxDirectory.Text = path;
                         InstallDirectory = path;
                         platformDetected = true;
+                        platform = 0;
+                        LoadRequiredPlugins();
                         return;
                     }
                 }
@@ -823,11 +838,14 @@ namespace AmongUsModManager
                 Properties.Settings.Default.CustomPath = CustomPathHandler();
                 Properties.Settings.Default.Save();
                 InstallDirectory = Properties.Settings.Default.CustomPath;
+                platform = 2;
             }
             else
             {
                 InstallDirectory = Properties.Settings.Default.CustomPath;
+                platform = 2;
             }
+            LoadRequiredPlugins();
         }
     }
 
