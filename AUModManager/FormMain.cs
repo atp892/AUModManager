@@ -71,6 +71,7 @@ namespace AmongUsModManager
                     groups.Add(current["name"], groups.Count());
                 }
             }
+            //
             groups.Add("Uncategorized", groups.Count());
 
             foreach (ReleaseInfo release in releases)

@@ -32,7 +32,10 @@
       "gitPath": "AU-Avengers/TOU-Mira",
       "releaseId": 4,
       "author": "AU Avengers",
-      "group": "Gameplay"
+      "group": "Gameplay",
+      "dependencies": [
+        "Mira API"
+      ]
     },
     {
       "name": "Reactor",
