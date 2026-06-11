@@ -27,12 +27,20 @@
       "group": "Gameplay"
     },
     {
+      "name": "Town of Us: Mira",
+      "tag": "",
+      "gitPath": "AU-Avengers/TOU-Mira",
+      "releaseId": 4,
+      "author": "AU Avengers",
+      "group": "Gameplay"
+    },
+    {
       "name": "Reactor",
       "tag": "",
       "gitPath": "NuclearPowered/Reactor",
       "releaseId": 0,
       "author": "NuclearPowered",
-      "group": "Libraries"
+      "group": "Core"
     },
     {
       "name": "Reactor.Impostor",
@@ -40,6 +48,36 @@
       "gitPath": "NuclearPowered/Reactor.Impostor",
       "releaseId": 1,
       "author": "NuclearPowered",
+      "group": "Libraries",
+      "dependencies": [
+        "Reactor"
+      ]
+    },
+    {
+      "name": "Project: Lotus Continued",
+      "tag": "",
+      "gitPath": "Lotus-AU/LotusContinued",
+      "releaseId": 1,
+      "author": "Lotus AU",
+      "group": "Gameplay",
+      "dependencies": [
+        "Vent Framework"
+      ]
+    },
+    {
+      "name": "Vent Framework",
+      "tag": "",
+      "gitPath": "Lotus-AU/LotusContinued",
+      "releaseId": 5,
+      "author": "Lotus AU",
+      "group": "Libraries"
+    },
+    {
+      "name": "Mira API",
+      "tag": "",
+      "gitPath": "All-Of-Us-Mods/MiraAPI",
+      "releaseId": 0,
+      "author": "All Of Us",
       "group": "Libraries"
     }
   ],
