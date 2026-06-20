@@ -155,3 +155,4 @@ $RECYCLE.BIN/
 # Mac desktop service store files
 .DS_Store
 /MonkeModManager/token.txt
+/.vs/AUModManager/FileContentIndex/3a85debe-66ce-4d14-a830-659fd96f878c.vsidx
